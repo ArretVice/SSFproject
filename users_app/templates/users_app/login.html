@@ -1,0 +1,14 @@
+{% extends 'base_layout.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="container">
+  <form method="post">
+    {% csrf_token %}
+    <h1>Log in</h1>
+    {% include 'includes/custom_form.html' with form=form %}
+    <button class="btn btn-success" type="submit">Login</button>
+  </form>
+</div>
+{% endblock content %}

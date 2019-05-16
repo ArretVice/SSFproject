@@ -1,0 +1,71 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+  <title>Arret Vice's Project</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'home' %}">AV</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <!-- Left side -->
+      <ul class="navbar-nav mr-auto">
+        {% url 'home' as home_url %}
+        <li class="nav-item{% ifequal request.path home_url %} active{% endifequal %}">
+          <a class="nav-link" href="{% url 'home' %}">Home</a>
+        </li>
+        {% url 'email_finder:home' as email_finder_url %}
+        <li class="nav-item{% ifequal request.path email_finder_url %} active{% endifequal %}">
+          <a class="nav-link" href="{% url 'email_finder:home' %}">E-mail finder</a>
+        </li>
+        {% url 'wishlist:wishlists' as wishlist_url %}
+        <li class="nav-item{% ifequal request.path wishlist_url %} active{% endifequal %}">
+          <a class="nav-link" href="{% url 'wishlist:wishlists' %}">Wishlist</a>
+        </li>
+      </ul>
+
+      <!-- Right side -->
+      <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+          <li class="navbar-text">{{ user.username }}</li>
+          {% url 'users:logout' as logout_url %}
+          <li class="nav-item{% ifequal request.path logout_url %} active{% endifequal %}">
+            <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+          </li>
+        {% else %}
+          {% url 'users:register' as register_url %}
+          <li class="nav-item{% ifequal request.path register_url %} active{% endifequal %}">
+            <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+          </li>
+          {% url 'users:login' as login_url %}
+          <li class="nav-item{% ifequal request.path login_url %} active{% endifequal %}">
+            <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Messages -->
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <!-- Content -->
+  <br>
+  <div class="container-fluid">
+    {% block content %}{% endblock content %}
+  </div>
+</body>
+</html>

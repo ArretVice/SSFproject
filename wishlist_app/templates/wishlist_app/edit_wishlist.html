@@ -1,0 +1,41 @@
+{% extends 'base_layout.html' %}
+{% load humanize %}
+
+
+{% block content %}
+<h1>Your wishlist:<a class="btn btn-secondary btn-lg" style="float: right;" href="{% url 'wishlist:wishlists' %}">Return</a></h1>
+<table class="table table-striped">
+  {% if items %}
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Item name</th>
+        <th scope="col">Price</th> 
+        <th scope="col">URL</th>
+        <th scope="col">Date added</th>
+        <th scope="col">Comment</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+        <tr>
+          <td>{{ item.item_name }}</td>
+          <td style="text-align: right;">{{ item.price|intcomma }}</td> 
+          <td style="text-align: center;"><a href="{{ item.url }}" target="_blank">Buy</a></td>
+          <td style="text-align: center;">{{ item.date_added|date:"d.m.Y" }}</td>
+          <td>{{ item.comment }}</td>
+          <td style="text-align: right; min-width: 128px;">
+            <a class="btn btn-warning btn-sm" href="{% url 'wishlist:edit_item' request.user.id item.id %}">Edit</a>
+            <a class="btn btn-danger btn-sm" href="{% url 'wishlist:delete_item' request.user.id item.id %}">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+    <tr>
+      <td colspan="6"><a href="{% url 'wishlist:add_item' request.user.id %}">+ add new item</a></td>
+    </tr>
+  {% else %}
+    <div class="alert alert-warning">Your wishlist is empty. <a href="{% url 'wishlist:add_item' request.user.id %}">Add new item</a></div>
+  {% endif %}
+</table>
+{% endblock content %}

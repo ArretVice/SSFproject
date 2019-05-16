@@ -1,0 +1,26 @@
+{% extends 'base_layout.html' %}
+
+
+{% block content %}
+<h1>Welcome!</h1>
+<p class="lead">This is my SSF project done in Django. Check out some of my apps!</p>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">E-mail finder</h5>
+    <p class="card-text">This app scans input text and finds any e-mails contained in it.</p>
+    <a href="{% url 'email_finder:home' %}" class="btn btn-success">Go to app</a>
+  </div>
+</div>
+<br>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Wishlist</h5>
+    <p class="card-text">This app allows you to create wishlist, where you can add items, description, link to buy etc. If you're not logged in, you can only browse other people's wishlists. To create your own wishlist, you must have an account.</p>
+    <a href="{% url 'wishlist:wishlists' %}" class="btn btn-success">Go to app</a>
+    {% if not request.user.is_authenticated %}
+      <a href="{% url 'users:register' %}" class="btn btn-secondary">Create account</a>
+      <a href="{% url 'users:login' %}" class="btn btn-secondary">Log in</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}

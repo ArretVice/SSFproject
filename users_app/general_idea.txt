@@ -1,0 +1,6 @@
+Features:
+
+1. Register ++ 
+2. Create new content if logged in, only browse if not logged in
+3. Delete account
+4. Profile page: edit name, add profile picture

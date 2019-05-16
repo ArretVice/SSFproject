@@ -1,0 +1,14 @@
+{% extends 'base_layout.html' %}
+
+
+{% block content %}
+<div class="container">
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% include 'includes/custom_form.html' with form=form %}
+    <input class="btn btn-success" type="submit" name="submit" value="Save">
+    <a class="btn btn-secondary" href="{% url 'wishlist:edit_wishlist' request.user.id %}">Return</a>
+    <a class="btn btn-secondary" href="{% url 'wishlist:edit_item' request.user.id form.instance.id %}" style="float: right;">Reset</a>
+  </form>
+</div>
+{% endblock content %}

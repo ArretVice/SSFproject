@@ -1,0 +1,9 @@
+Django==2.2.1
+django-app-namespace-template-loader==0.4.1
+django-crispy-forms==1.7.2
+django-widget-tweaks==1.4.3
+Pillow==6.0.0
+psycopg2==2.8.2
+pytz==2019.1
+six==1.12.0
+sqlparse==0.3.0

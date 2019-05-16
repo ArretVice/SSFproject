@@ -1,0 +1,42 @@
+{% extends 'base_layout.html' %}
+{% load humanize %}
+
+
+{% block content %}
+{% for user in users %}
+  {% if user.wishlistitem_set.all %}
+    {% if request.user.id == user.id %}
+      <h1>Your wishlist:<a class="btn btn-warning btn-lg" style="float: right;" href="{% url 'wishlist:edit_wishlist' user.id %}">Edit wishlist</a></h1>
+    {% else %}
+      <h1>{{ user.username }}'s wishlist:</h1>
+    {% endif %}
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Item name</th>
+          <th scope="col">Price</th> 
+          <th scope="col">URL</th>
+          <th scope="col">Date added</th>
+          <th scope="col">Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in user.wishlistitem_set.all %}
+          <tr>
+            <td>{{ item.item_name }}</td>
+            <td style="text-align: right;">{{ item.price|intcomma }}</td> 
+            <td style="text-align: center;"><a href="{{ item.url }}" target="_blank">Buy</a></td>
+            <td style="text-align: center;">{{ item.date_added|date:"d.m.Y" }}</td>
+            <td>{{ item.comment }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <br>
+  {% elif request.user.id == user.id %}
+    <h3>Your wishlist is empty. <a href="{% url 'wishlist:add_item' request.user.id %}">Add new item</a> to it.</h3>
+    <br>
+  {% endif %}
+  <br>
+{% endfor %}
+{% endblock content %}

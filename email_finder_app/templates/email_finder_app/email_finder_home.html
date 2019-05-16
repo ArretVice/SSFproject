@@ -1,0 +1,21 @@
+{% extends 'base_layout.html' %}
+
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  {% include 'includes/custom_form.html' with form=form %}
+  <button type="submit" class="btn btn-success">Submit</button>
+  <a class="btn btn-secondary" href="{% url 'email_finder:home' %}" style="float: right;">Reset</a>
+</form>
+<br>
+<div class="container">
+  {% if emails %}
+    <h4>E-mails found:</h4>
+    {% for email in emails %}
+      <li>{{ email }}</li>
+    {% endfor %}
+  {% elif form.data %}
+    <h4>No e-mails were found</h4>
+  {% endif %}
+{% endblock content %}

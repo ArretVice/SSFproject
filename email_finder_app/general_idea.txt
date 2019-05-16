@@ -1,0 +1,6 @@
+General idea:
+
+A script that takes text input (maybe a text box that you copy/paste into) 
+and it finds all email addresses in that text and returns them in a tidy list. 
+
+Idea taken (stolen) from https://discoverpraxis.com/portfolio-project-ideas-python/
