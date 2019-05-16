@@ -1,5 +1,6 @@
 # my specific ignored files
 admininfo.txt
+media/avatars/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -4,11 +4,20 @@ from django.contrib import messages
 from django.contrib.auth import views as auth_views
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
 
-from .forms import CustomUserCreationForm
+from .models import Profile
+from .forms import CustomUserCreationForm, UserForm, ProfileForm
 
 
 # Create your views here.
+class CustomLoginView(SuccessMessageMixin, auth_views.LoginView):
+    model = User
+    success_url = 'home'
+    success_message = 'Logged in as %(username)s'
+
+
 def register_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -30,8 +39,20 @@ def logout_view(request):
     messages.success(request, 'You have been logged out')
     return redirect('home')
 
-
-class CustomLoginView(SuccessMessageMixin, auth_views.LoginView):
-    model = User
-    success_url = 'home'
-    success_message = 'Logged in as %(username)s'
+@login_required(login_url='users:login')
+@transaction.atomic
+def edit_profile(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile was successfully updated!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'users_app/edit_profile.html', {'form': user_form, 'profile_form': profile_form})

@@ -4158,6 +4158,11 @@ input[type="button"].btn-block {
   padding: 0.5rem 1rem;
 }
 
+.profile-pic {
+  width: 40px;
+  height: 40px;
+}
+
 .navbar > .container,
 .navbar > .container-fluid {
   display: -ms-flexbox;
