@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-#import django_heroku
+import django_heroku
 import dj_database_url
 
 
@@ -142,11 +142,8 @@ MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-#django_heroku.settings(locals())
+
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
-
-
-# deployment checklist
-CSRF_COOKIE_SECURE = True
+django_heroku.settings(locals())
