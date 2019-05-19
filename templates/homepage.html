@@ -3,7 +3,9 @@
 
 {% block content %}
 <h1>Welcome!</h1>
-<p class="lead">This is my SSF project done in Django. Check out some of my apps!</p>
+<p class="lead">
+  This is my SSF project done in Django. Check out some of my apps!
+</p>
 <div class="card">
   <div class="card-body">
     <h5 class="card-title">E-mail finder</h5>
@@ -22,5 +24,9 @@
       <a href="{% url 'users:login' %}" class="btn btn-secondary">Log in</a>
     {% endif %}
   </div>
+</div>
+<br>
+<div class="alert alert-info">
+  At the moment profile picture uploads and display are unavailable. The feature will come online when I find filehosting for which I don't have to provide too much personal information.
 </div>
 {% endblock content %}
