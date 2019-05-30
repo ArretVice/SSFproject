@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
@@ -34,6 +34,7 @@ def register_view(request):
         form = CustomUserCreationForm()
     return render(request, 'users_app/register.html', {'form': form})
 
+@login_required(login_url='users:login')
 def logout_view(request):
     logout(request)
     messages.success(request, 'You have been logged out')
@@ -56,3 +57,16 @@ def edit_profile(request):
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'users_app/edit_profile.html', {'form': user_form, 'profile_form': profile_form})
+
+@login_required(login_url='users:login')
+def delete_user(request):
+    user = get_object_or_404(User, id=request.user.id)
+    return render(request, 'users_app/delete_user.html', {'user': user})
+
+@login_required(login_url='users:login')
+def confirm_delete_user(request):
+    user = get_object_or_404(User, id=request.user.id)
+    user_name = user.username
+    user.delete()
+    messages.success(request, f'{user_name} deleted')
+    return redirect('home')

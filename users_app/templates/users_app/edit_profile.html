@@ -12,6 +12,7 @@
     <br>
     <button class="btn btn-success" type="submit">Save</button>
     <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+    <a href="{% url 'users:delete_user' %}" class="btn btn-danger" style="float: right;">Delete user</a>
   </form>
 </div>
 {% endblock content %}

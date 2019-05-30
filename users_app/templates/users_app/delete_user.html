@@ -1,0 +1,18 @@
+{% extends 'base_layout.html' %}
+
+
+{% block content %}
+<div class="container">
+  <form method="post" action="{% url 'users:confirm_delete_user' %}">
+    {% csrf_token %}
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Confirm user deletion</h5>
+        <p class="card-text">Are you sure you want to delete <strong>{{ user.username }}</strong>?</p>
+        <button class="btn btn-danger btn-lg" type="submit" name="delete" value="Delete">Delete</button>
+        <a class="btn btn-secondary btn-lg" href="{% url 'users:edit_profile' %}">Cancel</a>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock content %}
