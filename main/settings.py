@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'wishlist_app',
     'widget_tweaks',
     'crispy_forms',
+    'exchangerates_app',
 ]
 
 MIDDLEWARE = [

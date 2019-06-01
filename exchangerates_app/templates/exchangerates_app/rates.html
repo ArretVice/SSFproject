@@ -1,0 +1,14 @@
+{% extends 'base_layout.html' %}
+{% load humanize %}
+
+
+{% block content %}
+<p class="lead">
+  Exchange rates for {{ current_date }}:
+  <ul>
+    {% for base, value in data.items %}
+      <li>{{ base }}: {{ value|floatformat:4|intcomma }} RUB</li>
+    {% endfor %}
+  </ul>
+</p>
+{% endblock content %}

@@ -1,0 +1,1 @@
+Exchange rates aggregator: fetch data daily, store in DB, create visual representation (history)

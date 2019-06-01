@@ -22,13 +22,20 @@
         <li class="nav-item{% ifequal request.path home_url %} active{% endifequal %}">
           <a class="nav-link" href="{% url 'home' %}">Home</a>
         </li>
+
         {% url 'email_finder:home' as email_finder_url %}
         <li class="nav-item{% ifequal request.path email_finder_url %} active{% endifequal %}">
           <a class="nav-link" href="{% url 'email_finder:home' %}">E-mail finder</a>
         </li>
+
         {% url 'wishlist:wishlists' as wishlist_url %}
         <li class="nav-item{% ifequal request.path wishlist_url %} active{% endifequal %}">
           <a class="nav-link" href="{% url 'wishlist:wishlists' %}">Wishlist</a>
+        </li>
+
+        {% url 'exchangerates:exchangerates' as exchangerates_url %}
+        <li class="nav-item{% ifequal request.path exchangerates_url %} active{% endifequal %}">
+          <a class="nav-link" href="{% url 'exchangerates:exchangerates' %}">Exchange rates</a>
         </li>
       </ul>
 

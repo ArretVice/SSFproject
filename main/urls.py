@@ -29,6 +29,7 @@ urlpatterns = [
     path('email_finder/', include('email_finder_app.urls')),
     path('wishlist/', include('wishlist_app.urls')),
     path('users/', include('users_app.urls')),
+    path('exchangerates/', include('exchangerates_app.urls')),
 ]
 
 if settings.DEBUG:
