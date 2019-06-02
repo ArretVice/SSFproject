@@ -30,6 +30,7 @@ urlpatterns = [
     path('wishlist/', include('wishlist_app.urls')),
     path('users/', include('users_app.urls')),
     path('exchangerates/', include('exchangerates_app.urls')),
+    path('blog/', include('blog_app.urls')),
 ]
 
 if settings.DEBUG:

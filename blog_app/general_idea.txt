@@ -1,0 +1,5 @@
+Blog app in django is basically a "Hello, World!"
+
+Features:
+ - create, update, delete posts
+ - view posts (all posts or posts of specific author)

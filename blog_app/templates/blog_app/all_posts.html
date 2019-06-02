@@ -1,0 +1,31 @@
+{% extends 'base_layout.html' %}
+
+
+{% block content %}
+  <h3>Blog
+    {% if request.user.is_authenticated %}
+      <a class="btn btn-success" href="{% url 'blog:create_post' %}" style="float: right;">+ Create new post</a>
+    {% endif %}
+  </h3>
+  <br>
+  {% for post in list_of_posts %}
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="{% url 'blog:post_details' post.pk %}">{{ post.title }}</a>
+        </h5>
+        <p class="card-text">{{ post.preview }}</p>
+        <p class="card-text">
+          <small class="text-muted">
+            posted by <a href="{% url 'blog:posts_by_user' post.author.username %}">{{ post.author }}</a>
+            {{ post.date_posted|date:"d.m.Y H:i" }}
+          </small>
+        </p>
+        {% if post.date_last_edited != post.date_posted %}
+          <i><small class="text-muted">last edited: {{ post.date_last_edited|date:"d.m.Y H:i" }}</small></i>
+        {% endif %}
+      </div>
+    </div>
+    <br>
+  {% endfor %}
+{% endblock content %}

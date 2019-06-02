@@ -1,0 +1,14 @@
+{% extends 'base_layout.html' %}
+
+
+{% block content %}
+<div class="container">
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% include 'includes/custom_form.html' with form=form %}
+    <input class="btn btn-success" type="submit" name="submit" value="Save">
+    <a class="btn btn-secondary" href="{% url 'blog:post_details' form.instance.pk %}">Cancel</a>
+    <a class="btn btn-danger" href="{% url 'blog:delete_post' form.instance.pk %}" style="float: right;">Delete</a>
+  </form>
+</div>
+{% endblock content %}

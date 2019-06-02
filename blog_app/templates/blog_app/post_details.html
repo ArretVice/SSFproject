@@ -1,0 +1,29 @@
+{% extends 'base_layout.html' %}
+
+
+{% block content %}
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">
+        <a href="{% url 'blog:post_details' post.pk %}">{{ post.title }}</a>
+      </h5>
+      <p class="card-text">{{ post.content }}</p>
+      <p class="card-text">
+        <small class="text-muted">
+          posted by <a href="{% url 'blog:posts_by_user' post.author.username %}">{{ post.author }}</a>
+          {{ post.date_posted|date:"d.m.Y H:i" }}
+        </small>
+      </p>
+        {% if post.date_last_edited != post.date_posted %}
+          <i><small class="text-muted">last edited: {{ post.date_last_edited|date:"d.m.Y H:i" }}</small></i>
+        {% endif %}
+        {% if request.user == post.author %}
+          <div class="card-footer">
+            <a class="btn btn-warning" href="{% url 'blog:edit_post' post.pk %}">Edit</a>
+            <a class="btn btn-secondary" href="{% url 'blog:all_posts' %}">Return</a>
+            <a class="btn btn-danger" href="{% url 'blog:delete_post' post.pk %}" style="float: right;">Delete</a>
+          </div>
+        {% endif %}
+    </div>
+  </div>
+{% endblock content %}

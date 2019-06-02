@@ -23,6 +23,11 @@
           <a class="nav-link" href="{% url 'home' %}">Home</a>
         </li>
 
+        {% url 'blog:all_posts' as all_posts_url %}
+        <li class="nav-item{% ifequal request.path all_posts_url %} active{% endifequal %}">
+          <a class="nav-link" href="{% url 'blog:all_posts' %}">Blog</a>
+        </li>
+
         {% url 'email_finder:home' as email_finder_url %}
         <li class="nav-item{% ifequal request.path email_finder_url %} active{% endifequal %}">
           <a class="nav-link" href="{% url 'email_finder:home' %}">E-mail finder</a>
@@ -35,7 +40,7 @@
 
         {% url 'exchangerates:exchangerates' as exchangerates_url %}
         <li class="nav-item{% ifequal request.path exchangerates_url %} active{% endifequal %}">
-          <a class="nav-link" href="{% url 'exchangerates:exchangerates' %}">Exchange rates</a>
+          <a class="nav-link" href="{% url 'exchangerates:exchangerates' %}">Exchange rates (Beta)</a>
         </li>
       </ul>
 

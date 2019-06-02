@@ -6,14 +6,32 @@
 <p class="lead">
   This is my SSF project done in Django. Check out some of my apps!
 </p>
+
+<!-- Blog app -->
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Blog app</h5>
+    <p class="card-text">This app is basically a "Hello, World!" in Django. Blog lets you create, edit and delete posts if you're logged in. If not, you will still be able to view posts.</p>
+    <a href="{% url 'blog:all_posts' %}" class="btn btn-success">Go to app</a>
+    {% if not request.user.is_authenticated %}
+      <a href="{% url 'users:register' %}" class="btn btn-secondary">Create account</a>
+      <a href="{% url 'users:login' %}" class="btn btn-secondary">Log in</a>
+    {% endif %}
+  </div>
+</div>
+<br>
+
+<!-- E-mail finder app -->
 <div class="card">
   <div class="card-body">
     <h5 class="card-title">E-mail finder</h5>
-    <p class="card-text">This app scans input text and finds any e-mails contained in it.</p>
+    <p class="card-text">This app scans input text and finds any e-mails contained in it. You don't need an account to use this app.</p>
     <a href="{% url 'email_finder:home' %}" class="btn btn-success">Go to app</a>
   </div>
 </div>
 <br>
+
+<!-- Wishlist app -->
 <div class="card">
   <div class="card-body">
     <h5 class="card-title">Wishlist</h5>
@@ -26,6 +44,7 @@
   </div>
 </div>
 <br>
+
 <div class="alert alert-info">
   At the moment profile picture uploads and display are unavailable. The feature will come online when I find filehosting for which I don't have to provide too much personal information.
 </div>
