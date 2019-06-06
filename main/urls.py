@@ -31,6 +31,7 @@ urlpatterns = [
     path('users/', include('users_app.urls')),
     path('exchangerates/', include('exchangerates_app.urls')),
     path('blog/', include('blog_app.urls')),
+    path('', include('social_django.urls', namespace='social')),
 ]
 
 if settings.DEBUG:

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'exchangerates_app',
     'blog_app',
+    'social_django',    
 ]
 
 MIDDLEWARE = [
@@ -71,6 +72,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -138,3 +141,15 @@ MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# VK authentication stuff https://python-social-auth-docs.readthedocs.io/en/latest/configuration/django.html
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.vk.VKOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = os.environ.get('VK_APP_ID')
+SOCIAL_AUTH_VK_OAUTH2_SECRET = os.environ.get('VK_APP_KEY')
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['friends']
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
