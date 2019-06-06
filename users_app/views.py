@@ -73,8 +73,8 @@ def confirm_delete_user(request):
     return redirect('home')
 
 def vk_view(request):
-    access_token = request.user.social_auth.get(provider='vk-oauth2').extra_data.get('access_token')
-    #access_token = request.user.social_auth.filter(provider='vk-oauth2')[0].extra_data.get('access_token')
+    #access_token = request.user.social_auth.get(provider='vk-oauth2').extra_data.get('access_token')
+    access_token = request.user.social_auth.filter(provider='vk-oauth2')[0].extra_data.get('access_token')
 
     # getting your profile
     url = 'https://api.vk.com/method/'
