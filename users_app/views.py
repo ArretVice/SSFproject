@@ -6,6 +6,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+import requests
 
 from .models import Profile
 from .forms import CustomUserCreationForm, UserForm, ProfileForm
@@ -70,3 +71,28 @@ def confirm_delete_user(request):
     user.delete()
     messages.success(request, f'{user_name} deleted')
     return redirect('home')
+
+def vk_view(request):
+    access_token = request.user.social_auth.get(provider='vk-oauth2').extra_data.get('access_token')
+
+    # getting your profile
+    url = 'https://api.vk.com/method/'
+    method = 'getProfiles'
+    response = requests.get(url + method, params={'access_token': access_token, 'v': '5.21'})
+    your_profile = response.json()['response'][0]
+    your_profile = ' '.join((your_profile['first_name'], your_profile['last_name']))
+
+    # getting your friendslist
+    url = 'https://api.vk.com/method/'
+    method = 'friends.get'
+    response = requests.get(url + method, params={
+        'access_token': access_token,
+        'v': '5.21', 
+        'order': 'random',
+        'fields': ('first_name', 'last_name')
+        })
+    friends = response.json()['response']['items']
+    friends = friends[:5] if len(friends) >= 5 else friends
+    friends = [' '.join((user['first_name'], user['last_name'])) for user in friends]
+    context = {'your_profile': your_profile, 'friends': friends}
+    return render(request, 'users_app/vk_view.html', context)

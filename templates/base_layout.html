@@ -42,6 +42,14 @@
         <li class="nav-item{% ifequal request.path exchangerates_url %} active{% endifequal %}">
           <a class="nav-link" href="{% url 'exchangerates:exchangerates' %}">Exchange rates (Beta)</a>
         </li>
+
+        {% if user.is_authenticated and user.social_auth.exists %}
+          {% url 'users:vk_view' as vk_view_url %}
+          <li class="nav-item{% ifequal request.path vk_view_url %} active{% endifequal %}">
+            <a class="nav-link" href="{% url 'users:vk_view' %}">Посмотреть 5 случайных друзей</a>
+          </li>
+        {% endif %}
+
       </ul>
 
       <!-- Right side -->
@@ -56,6 +64,10 @@
             <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
           </li>
         {% else %}
+          {% url 'users:vk_view' as vk_view_url %}
+          <li class="nav-item">
+            <a class="nav-link" href="/login/vk-oauth2">Авторизоваться через ВК</a>
+          </li>
           {% url 'users:register' as register_url %}
           <li class="nav-item{% ifequal request.path register_url %} active{% endifequal %}">
             <a class="nav-link" href="{% url 'users:register' %}">Register</a>

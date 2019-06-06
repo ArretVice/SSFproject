@@ -1,0 +1,14 @@
+{% extends 'base_layout.html' %}
+
+
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Your profile: {{ your_profile }}</h5>
+    <p class="card-text">Your random friends:</p>
+    {% for friend in friends %}
+      <li>{{ friend }}</li>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
